@@ -3,9 +3,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /*background-image: url("images/background.png");
+    background-image: url("images/background.png");
     background-size: cover;
-    background-position: center;*/
+    background-position: center;
     min-height: 100vh; /* Hauteur minimale : 100% de la hauteur de la fenêtre */
     width: 100%; /* Largeur : 100% de la fenêtre */
     font-family: Arial, sans-serif;
