@@ -33,7 +33,7 @@ button {
     margin: 20px auto;
     padding: 10px 20px;
     cursor: pointer;
-    /*background-color: black;*/
+    background-color: black;
     color: white;
     border: solid, rebeccapurple;
     border-radius: 10%;

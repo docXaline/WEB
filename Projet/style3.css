@@ -100,7 +100,7 @@ h2{
     background-color: green;
 }
 
-#commencer {
+#COMMENCER {
     position: absolute;
     top: 35%;
     left: 30%;
@@ -111,7 +111,7 @@ h2{
     border: none;
 }
 
-#commencer img {
+#COMMENCER img {
     display: block;
     width: 46%;
 }

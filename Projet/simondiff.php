@@ -43,5 +43,6 @@
         </button>
     </div>
 </body>
+<script src="pagedebut.js"></script>
 <script src="script3.js"></script>
 </html>

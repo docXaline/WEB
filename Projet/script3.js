@@ -4,6 +4,7 @@ const couleur = ["vert-fonce", "rose", "blanc", "bleu-ciel", "orange", "violet"]
 const color = ["vert", "rouge", "jaune", "bleu"];
 let gameOver = false;
 let startTime;
+let difficulty; // 1: facile, 2: moyen, 3: difficile
 
 // Sélection des éléments HTML
 const startButton = document.getElementById("comm");
@@ -16,34 +17,40 @@ const checkVert = document.getElementById("checkVert");
 const niveau = document.getElementById("niveau");
 
 // Gestion des événements
-document.addEventListener("DOMContentLoaded", () => {
-    if (startButton) {
-        startButton.addEventListener("click", () => {
-            console.log("Simon Base Start Button Clicked");
-            jeux.simonBase.start();
-        });
-    } else {
-        console.error("Element with ID 'comm' not found.");
-    }
 
-    if (startbtn) {
-        startbtn.addEventListener("click", () => {
-            console.log("Simon Moyen Start Button Clicked");
-            jeux.simonMoy.start();
-        });
-    } else {
-        console.error("Element with ID 'commencer' not found.");
-    }
+if (startButton) {
+    startButton.addEventListener("click", () => {
+        console.log("Simon Base Start Button Clicked");
+        jeux.simonBase.start();
+        
+    });
+} else {
+    console.error("Element with ID 'comm' not found.");
+}
 
-    if (startBTN) {
-        startBTN.addEventListener("click", () => {
-            console.log("Piano Start Button Clicked");
-            jeux.piano.start();
-        });
-    } else {
-        console.error("Element with ID 'COMMENCER' not found.");
-    }
-});
+if (startbtn) {
+    startbtn.addEventListener("click", () => {
+        console.log("Simon Moyen Start Button Clicked");
+        jeux.simonMoy.start();
+        
+    
+    });
+} else {
+    console.error("Element with ID 'commencer' not found.");
+}
+
+if (startBTN) {
+    startBTN.addEventListener("click", () => {
+        console.log("Piano Start Button Clicked");
+        jeux.piano.start();
+    });
+} else {
+    console.error("Element with ID 'COMMENCER' not found.");
+}
+
+if(difficulty) {
+    console.log("Difficulté actuelle:", difficulty);
+}
 
 closePopup.addEventListener("click", () => {
     popup.style.display = "none";
@@ -63,6 +70,7 @@ const jeux = {
             this.sequence = [];
             this.sequenceJouer = [];
             this.level = 0;
+            difficulty = 1;
             gameOver = false;
             resetCheck();
             this.nextLevel();
@@ -93,6 +101,7 @@ const jeux = {
             this.sequence = [];
             this.sequenceJouer = [];
             this.level = 0;
+            difficulty = 2;
             gameOver = false;
             resetCheck();
             this.nextLevel();
@@ -123,6 +132,7 @@ const jeux = {
             this.sequence = [];
             this.sequenceJouer = [];
             this.level = 0;
+            difficulty = 3;
             gameOver = false;
             resetCheck();
             this.nextLevel();
@@ -261,25 +271,36 @@ function flashCouleur(couleur) {
     }
 }
 
+// script3.js
+const urlParams = new URLSearchParams(window.location.search);
+const username2 = urlParams.get("username");
+
 function checkSequence(game) {
     for (let i = 0; i < game.sequenceJouer.length; i++) {
         if (game.sequenceJouer[i] !== game.sequence[i]) {
             gameOver = true;
+            const niveauActuel = game.level;
 
             // Calcul du temps de réaction
             const endTime = new Date().getTime();
             const reactionTime = ((endTime - startTime) / 1000).toFixed(2); // Temps en secondes
 
             // Affiche le popup avec le message de défaite
-            showPopup(`Mauvaise couleur ! Vous avez perdu au niveau ${game.level}. Temps de réaction : ${reactionTime} secondes.`);
+            showPopup(`Mauvaise couleur ! Vous avez perdu au niveau ${niveauActuel}. Temps de réaction : ${reactionTime} secondes.`);
 
             // Change checkVert en rouge et l'allume
             checkVert.style.color = "red";
             checkVert.style.opacity = 1;
 
+            console.log(difficulty);
+            console.log(niveauActuel);
+            console.log(reactionTime);
+            console.log(username2);
             return;
         }
     }
+
+    
 
     // Si la séquence est correcte mais incomplète, on attend le prochain clic
     if (game.sequenceJouer.length === game.sequence.length) {
@@ -316,4 +337,22 @@ function updateNiveau(level) {
     niveau.textContent = "Niveau: " + level;
 }
 
-console.log(jeux.simonBase.level);
+function saveGame() {
+    console.log("Saving game data...");
+    if (!niveauActuel || !reactionTime || !difficulty) {
+        alert("Les données de jeu sont invalides. Veuillez réessayer.");
+        return;
+    }
+
+    if (username2) {
+        console.log("Username:", username2);
+        // Construction de l'URL avec les paramètres nécessaires
+        let newURL = `pagedebut.php?username2=${encodeURIComponent(username2)}&gamelevel=${encodeURIComponent(niveauActuel)}&reactionTime=${encodeURIComponent(reactionTime)}&difficulty=${encodeURIComponent(difficulty)}`;
+        console.log("URL à ouvrir :", newURL);
+
+        // Redirection vers la page pour sauvegarder les scores
+        window.location.href = newURL;
+    } else {
+        alert("Veuillez entrer un nom d'utilisateur valide.");
+    }
+}

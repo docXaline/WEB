@@ -99,7 +99,7 @@ h2{
 }
 
 
-#commencer {
+#comm {
     position: absolute;
     top: 26%;
     left: 50%;
@@ -110,7 +110,7 @@ h2{
     border: none;
 }
 
-#commencer img {
+#comm img {
     display: block;
     width: 100%
 }
