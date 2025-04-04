@@ -25,7 +25,7 @@
             <div id="sol-sharp" class="black-key"></div>
             <div id="si-flat" class="black-key"></div>
         </div>
-        <button id="commencer"><img src="images/start1.png" alt="Start"></button>
+        <button id="COMMENCER"><img src="images/start1.png" alt="Start"></button>
         <div class="bonFaux">
             <h2 id="niveau">Niveau: 0</h2>
             <div id="checkVert" class="rougeVert checkVert"></div>

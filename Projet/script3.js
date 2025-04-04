@@ -1,25 +1,47 @@
+// Définition des constantes et variables globales
 const keys = ["do", "re", "mi", "fa", "sol", "la", "si", "do-sharp", "re-sharp", "fa-sharp", "sol-sharp", "si-flat"];
-let sequence = [];
-let sequenceJouer = [];
-let level = 0;
+const couleur = ["vert-fonce", "rose", "blanc", "bleu-ciel", "orange", "violet"];
+const color = ["vert", "rouge", "jaune", "bleu"];
 let gameOver = false;
 let startTime;
-let endTime;
-let reactionTime;
 
-const startButton = document.getElementById("commencer");
-const keyElements = keys.map(key => document.getElementById(key));
+// Sélection des éléments HTML
+const startButton = document.getElementById("comm");
+const startbtn = document.getElementById("commencer");
+const startBTN = document.getElementById("COMMENCER");
 const popup = document.getElementById("popup");
 const popupMessage = document.getElementById("popupMessage");
 const closePopup = document.getElementById("closePopup");
 const checkVert = document.getElementById("checkVert");
 const niveau = document.getElementById("niveau");
 
-startButton.addEventListener("click", startGame);
+// Gestion des événements
+document.addEventListener("DOMContentLoaded", () => {
+    if (startButton) {
+        startButton.addEventListener("click", () => {
+            console.log("Simon Base Start Button Clicked");
+            jeux.simonBase.start();
+        });
+    } else {
+        console.error("Element with ID 'comm' not found.");
+    }
 
-keyElements.forEach(keyElement => {
-    if (keyElement) {
-        keyElement.addEventListener("click", () => toucheKeyClick(keyElement.id));
+    if (startbtn) {
+        startbtn.addEventListener("click", () => {
+            console.log("Simon Moyen Start Button Clicked");
+            jeux.simonMoy.start();
+        });
+    } else {
+        console.error("Element with ID 'commencer' not found.");
+    }
+
+    if (startBTN) {
+        startBTN.addEventListener("click", () => {
+            console.log("Piano Start Button Clicked");
+            jeux.piano.start();
+        });
+    } else {
+        console.error("Element with ID 'COMMENCER' not found.");
     }
 });
 
@@ -27,37 +49,150 @@ closePopup.addEventListener("click", () => {
     popup.style.display = "none";
 });
 
-function startGame() {
-    sequence = [];
-    sequenceJouer = [];
-    level = 0;
-    gameOver = false;
-    resetCheck();
-    nextLevel();
-}
+document.getElementById('retour').addEventListener('click', function () {
+    window.location.href = 'pagedebut.php'; // Redirige vers la page de début
+});
 
-function nextLevel() {
-    level++;
-    sequenceJouer = [];
-    updateNiveau(level);
-    const nextKey = keys[Math.floor(Math.random() * keys.length)];
-    sequence.push(nextKey);
-    Jouer();
-}
+// Définition des jeux
+const jeux = {
+    simonBase: {
+        sequence: [],
+        sequenceJouer: [],
+        level: 0,
+        start: function () {
+            this.sequence = [];
+            this.sequenceJouer = [];
+            this.level = 0;
+            gameOver = false;
+            resetCheck();
+            this.nextLevel();
+        },
+        nextLevel: function () {
+            resetCheck(); // Réinitialise l'état de checkVert
+            this.level++;
+            this.sequenceJouer = [];
+            updateNiveau(this.level);
+            const nextColor = color[Math.floor(Math.random() * color.length)];
+            this.sequence.push(nextColor);
+            this.play();
+        },
+        play: function () {
+            startTime = new Date().getTime(); // Enregistre le temps de début
+            this.sequence.forEach((color, index) => {
+                setTimeout(() => {
+                    flashColor(color);
+                }, (index + 1) * 600);
+            });
+        }
+    },
+    simonMoy: {
+        sequence: [],
+        sequenceJouer: [],
+        level: 0,
+        start: function () {
+            this.sequence = [];
+            this.sequenceJouer = [];
+            this.level = 0;
+            gameOver = false;
+            resetCheck();
+            this.nextLevel();
+        },
+        nextLevel: function () {
+            resetCheck(); // Réinitialise l'état de checkVert
+            this.level++;
+            this.sequenceJouer = [];
+            updateNiveau(this.level);
+            const nextCouleur = couleur[Math.floor(Math.random() * couleur.length)];
+            this.sequence.push(nextCouleur);
+            this.play();
+        },
+        play: function () {
+            startTime = new Date().getTime(); // Enregistre le temps de début
+            this.sequence.forEach((couleur, index) => {
+                setTimeout(() => {
+                    flashCouleur(couleur);
+                }, (index + 1) * 600);
+            });
+        }
+    },
+    piano: {
+        sequence: [],
+        sequenceJouer: [],
+        level: 0,
+        start: function () {
+            this.sequence = [];
+            this.sequenceJouer = [];
+            this.level = 0;
+            gameOver = false;
+            resetCheck();
+            this.nextLevel();
+        },
+        nextLevel: function () {
+            resetCheck(); // Réinitialise l'état de checkVert
+            this.level++;
+            this.sequenceJouer = [];
+            updateNiveau(this.level);
+            const nextKey = keys[Math.floor(Math.random() * keys.length)];
+            this.sequence.push(nextKey);
+            this.play();
+        },
+        play: function () {
+            startTime = new Date().getTime(); // Enregistre le temps de début
+            this.sequence.forEach((key, index) => {
+                setTimeout(() => {
+                    flashKey(key);
+                }, (index + 1) * 600);
+            });
+        }
+    }
+};
 
-function Jouer() {
-    sequence.forEach((key, index) => {
-        setTimeout(() => {
-            flashKey(key);
-        }, (index + 1) * 600);
-    });
-}
+// Attache des événements de clic aux couleurs pour Simon Base
+color.forEach((color) => {
+    const colorElement = document.getElementById(color);
+    if (colorElement) {
+        colorElement.addEventListener("click", () => {
+            flashColor(color); // Simule l'effet visuel
+            jeux.simonBase.sequenceJouer.push(color); // Ajoute la couleur cliquée à la séquence du joueur
+            checkSequence(jeux.simonBase); // Vérifie si la séquence est correcte
+        });
+    } else {
+        console.error(`Element with ID '${color}' not found.`);
+    }
+});
 
+couleur.forEach((couleur) => {
+    const couleurElement = document.getElementById(couleur);
+    if (couleurElement) {
+        couleurElement.addEventListener("click", () => {
+            flashCouleur(couleur); // Simule l'effet visuel
+            jeux.simonMoy.sequenceJouer.push(couleur); // Ajoute la couleur cliquée à la séquence du joueur
+            checkSequence(jeux.simonMoy); // Vérifie si la séquence est correcte
+        });
+    } else {
+        console.error(`Element with ID '${couleur}' not found.`);
+    }
+});
+
+keys.forEach((key) => {
+    const keyElement = document.getElementById(key);
+    if (keyElement) {
+        keyElement.addEventListener("click", () => {
+            flashKey(key); // Simule l'effet visuel
+            jeux.piano.sequenceJouer.push(key); // Ajoute la touche cliquée à la séquence du joueur
+            checkSequence(jeux.piano); // Vérifie si la séquence est correcte
+        });
+    } else {
+        console.error(`Element with ID '${key}' not found.`);
+    }
+});
+
+
+// Fonctions utilitaires
 function flashKey(key) {
     const keyElement = document.getElementById(key);
     if (keyElement) {
         keyElement.style.opacity = 1;
-        startTime = new Date().getTime(); // Enregistre le temps de début
         setTimeout(() => {
             keyElement.style.opacity = 0.5;
         }, 300);
@@ -106,45 +241,79 @@ function flashKey(key) {
     }
 }
 
-function toucheKeyClick(key) {
-    endTime = new Date().getTime(); // Enregistre le temps de fin
-    reactionTime = endTime - startTime; // Calcule le temps de réaction
-    sequenceJouer.push(key);
-    flashKey(key);
-    
-    if (!checkSequence()) {
-        showPopup("Perdu! Vous êtes au niveau " + level + ". Temps de jeu: " + reactionTime + " s");
-        gameOver = true;
-        checkVert.style.opacity = 1;
-    } else if (sequenceJouer.length === sequence.length) {
-        checkVert.style.opacity = 1;
+function flashColor(color) {
+    const colorElement = document.getElementById(color);
+    if (colorElement) {
+        colorElement.style.opacity = 1;
         setTimeout(() => {
-            nextLevel();
-            resetCheck();
+            colorElement.style.opacity = 0.5;
+        }, 300);
+    }
+}
+
+function flashCouleur(couleur) {
+    const couleurElement = document.getElementById(couleur);
+    if (couleurElement) {
+        couleurElement.style.opacity = 1;
+        setTimeout(() => {
+            couleurElement.style.opacity = 0.5;
+        }, 300);
+    }
+}
+
+function checkSequence(game) {
+    for (let i = 0; i < game.sequenceJouer.length; i++) {
+        if (game.sequenceJouer[i] !== game.sequence[i]) {
+            gameOver = true;
+
+            // Calcul du temps de réaction
+            const endTime = new Date().getTime();
+            const reactionTime = ((endTime - startTime) / 1000).toFixed(2); // Temps en secondes
+
+            // Affiche le popup avec le message de défaite
+            showPopup(`Mauvaise couleur ! Vous avez perdu au niveau ${game.level}. Temps de réaction : ${reactionTime} secondes.`);
+
+            // Change checkVert en rouge et l'allume
+            checkVert.style.color = "red";
+            checkVert.style.opacity = 1;
+
+            return;
+        }
+    }
+
+    // Si la séquence est correcte mais incomplète, on attend le prochain clic
+    if (game.sequenceJouer.length === game.sequence.length) {
+        // Change checkVert en vert et l'allume
+        checkVert.style.color = "green";
+        checkVert.style.opacity = 1;
+
+        setTimeout(() => {
+            game.nextLevel(); // Passe au niveau suivant
         }, 1000);
     }
 }
 
-function checkSequence() {
-    for (let i = 0; i < sequenceJouer.length; i++) {
-        if (sequenceJouer[i] !== sequence[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-
 function showPopup(message) {
-    popupMessage.textContent = message;
-    //const music = new Audio("audio/emotioDfin.mp3");
-    //music.play();
-    popup.style.display = "flex";
+    const popup = document.getElementById("popup");
+    const popupMessage = document.getElementById("popupMessage");
+
+    if (popup && popupMessage) {
+        const music = new Audio("audio/emotioDfin.mp3");
+        music.play();
+        popupMessage.textContent = message; // Définit le message du popup
+        popup.style.display = "flex"; // Affiche le popup
+    } else {
+        console.error("Popup or PopupMessage element not found.");
+    }
 }
 
 function resetCheck() {
+    checkVert.style.color = "green";
     checkVert.style.opacity = 0.5;
 }
 
 function updateNiveau(level) {
     niveau.textContent = "Niveau: " + level;
 }
+
+console.log(jeux.simonBase.level);

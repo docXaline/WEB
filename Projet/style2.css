@@ -77,22 +77,22 @@ h2{
     background-color: green;
 }
 
-.vert{
-    background-color: green;
+.vert-fonce{
+    background-color: rgb(10, 58, 10);
     border-top-left-radius: 100%;
 }
 
-.rouge{
-    background-color: red;
+.rose{
+    background-color: pink;
 }
 
-.jaune{
-    background-color: yellow;
+.blanc{
+    background-color: white;
     border-top-right-radius: 100%;
 }
 
-.bleu{
-    background-color: blue;
+.bleu-ciel{
+    background-color: cyan;
     border-bottom-left-radius: 100%;
 }
 

@@ -12,10 +12,10 @@
     </header>
     <div class="jeu-container">>
         <div class="jeu_simon">
-            <div id="vert" class="couleur vert"></div>
-            <div id="rouge" class="couleur rouge"></div>
-            <div id="jaune" class="couleur jaune"></div>
-            <div id="bleu" class="couleur bleu"></div>
+            <div id="vert-fonce" class="couleur vert-fonce"></div>
+            <div id="rose" class="couleur rose"></div>
+            <div id="blanc" class="couleur blanc"></div>
+            <div id="bleu-ciel" class="couleur bleu-ciel"></div>
             <div id="orange" class="couleur orange"></div>
             <div id="violet" class="couleur violet"></div>
         </div>
@@ -37,5 +37,5 @@
         </button>
     </div>
 </body>
-<script src="script2.js"></script>
+<script src="script3.js"></script>
 </html>

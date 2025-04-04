@@ -16,7 +16,7 @@
             <div id="rouge" class="couleur rouge"></div>
             <div id="jaune" class="couleur jaune"></div>
             <div id="bleu" class="couleur bleu"></div>
-            <button id="commencer">
+            <button id="comm">
                 <img src="images/start0.png" alt="Start">
             </button>
         </div>
@@ -37,5 +37,5 @@
         </button>
     </div>
 </body>
-<script src="script.js"></script>
+<script src="script3.js"></script>
 </html>
