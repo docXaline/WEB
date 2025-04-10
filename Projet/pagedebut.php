@@ -70,7 +70,7 @@
 <?php 
 try {
     // Connexion à la base de données
-    $pdo = new PDO('mysql:host=localhost;dbname=projetweb', 'root', ''); // Connexion à MySQL
+    $pdo = new PDO('mysql:host=localhost;dbname=aline', 'root', ''); // Connexion à MySQL
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Active les exceptions pour les erreurs PDO
 
     // Vérification si le formulaire a été soumis
@@ -85,7 +85,7 @@ try {
 
         // Génération d'un pseudo pour l'utilisateur
         $pseudo = $nom; // Utilise le nom comme pseudo
-        echo '<script>document.getElementById("pseudo").value = "' . $pseudo . '";</script>'; // Injecte le pseudo dans le DOM
+        echo '<input type = "hidden" value = "' . $pseudo . '">'; // Injecte le pseudo dans le DOM
     }
 
     // Vérification si des données sont passées en GET
@@ -119,6 +119,7 @@ try {
                 'id_Joueur' => $pdo->lastInsertId(), // Récupère l'ID du joueur inséré
                 'id_Diff' => $id_Diff // ID de la difficulté
             ]);
+            header("Location: pagedebut.php"); // Redirige vers la même page
         }
     }
 } catch (PDOException $e) {
@@ -128,7 +129,7 @@ try {
 }
 
 // Redirection vers la page de début
-header("Location: pagedebut.php"); // Redirige vers la même page
-exit; // Arrête l'exécution du script après la redirection
+
+
 ?>
 </html>

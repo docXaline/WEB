@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function openGame(gameName) {
 
     const inputusername = document.querySelector("#pseudo");
+    username = inputusername.value.trim(); // Récupérer la valeur du pseudo
     if (username) {
         console.log(username);
     }
