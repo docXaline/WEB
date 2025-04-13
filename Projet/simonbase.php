@@ -39,4 +39,5 @@
 </body>
 <script src="pagedebut.js"></script>
 <script src="script3.js"></script>
+<script src="logout.js"></script>
 </html>

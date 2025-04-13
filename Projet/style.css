@@ -154,6 +154,14 @@ h2{
     background-color: black; /* Couleur de fond */
     border: 1px solid rebeccapurple; /* Bordure */
     border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 0 10px rebeccapurple; /* Effet néon */
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     color: white; /* Couleur du texte */
     text-decoration: none; /* Supprime le soulignement */
+}
+
+#retour:hover {
+    background-color: rebeccapurple; /* Couleur néon au survol */
+    color: black;
+    box-shadow: 0 0 20px rebeccapurple; /* Intensifie l'effet néon */
 }

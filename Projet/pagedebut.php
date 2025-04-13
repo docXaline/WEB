@@ -1,3 +1,13 @@
+<?php
+$nom = isset($_GET['nom']) ? htmlspecialchars($_GET['nom']) : null;
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if(isset($_GET['nom'])) {
+        echo "Nom d'utilisateur manquant.";
+        $nom = htmlspecialchars($_GET['nom']);
+        echo "<input type='hidden' id='nom' value='$nom'>"; // Ajout d'un champ caché pour le nom
+        
+    }}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,24 +20,10 @@
     <header>
         <h1>Bienvenue dans le jeu de Simon</h1> <!-- Titre principal de la page -->
     </header>
-
     <!-- Formulaire pour saisir le nom et le prénom -->
-    <div id="form-container">
-        <h2>Veuillez entrer votre nom et prénom pour commencer :</h2>
-        <form method="POST" action="pagedebut.php" id="user-form"> <!-- Formulaire envoyé en méthode POST -->
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="pseudo" required> <!-- Champ pour le nom -->
-            <br><br>
-            <label for="prenom">Prénom :</label>
-            <input type="text" id="prenom" name="prenom" required> <!-- Champ pour le prénom -->
-            <br><br>
-            <button type="submit">Valider</button> <!-- Bouton pour soumettre le formulaire -->
-        </form>
-    </div>
-
     <!-- Contenu principal de la page (choix des jeux) -->
-    <div id="main-content" style="display:none;"> <!-- Masqué par défaut -->
-        <div>
+    <div id="main-content"> <!-- Masqué par défaut -->
+        <div class="button-container">
             <h2>Dans ce jeu, vous jouerez aux jeu de simon classique à 4 couleurs, <br>
                 le but est de mémoriser une suite de couleur qui augmentera à chaque niveau <br>
                 (jeu facile)</h2>
@@ -36,7 +32,7 @@
             </button>
         </div>
         <br><br>
-        <div>
+        <div class="button-container">
             <h2>Dans ce jeu, vous jouerez aux jeu de simon classique à 6 couleurs, <br>
                 le but est de mémoriser une suite de couleur qui augmentera à chaque niveau <br>
                 (jeu moyen)</h2>
@@ -45,7 +41,7 @@
             </button>
         </div>
         <br><br>
-        <div>
+        <div class="button-container">
             <h2>Dans ce jeu, vous jouerez aux jeu de simon en format piano à 12 touches, <br>
                 le but est de mémoriser une suite de couleur qui augmentera à chaque niveau. <br>
                 Attention c'est en noir et blanc (jeu difficile)</h2>
@@ -54,82 +50,11 @@
             </button>
         </div>
     </div>
-
-    <!-- Bouton pour afficher le classement -->
-    <button id="show-ranking" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
-        Voir le classement
-    </button>
-
-    <br><br>
     <!-- Bouton pour se déconnecter -->
-    <button id="logout-button" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+    <button onclick="window.location.href='log.php'" id="logout-button" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
         Se déconnecter
     </button>
 </body>
+<script src="logout.js"></script> <!-- Inclusion du fichier JavaScript pour la déconnexion -->
 <script src="pagedebut.js"></script> <!-- Inclusion du fichier JavaScript -->
-<?php 
-try {
-    // Connexion à la base de données
-    $pdo = new PDO('mysql:host=localhost;dbname=aline', 'root', ''); // Connexion à MySQL
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Active les exceptions pour les erreurs PDO
-
-    // Vérification si le formulaire a été soumis
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Si la méthode est POST
-        // Récupération des données du formulaire
-        $nom = htmlspecialchars($_POST['nom']); // Sécurise le champ "nom"
-        $prenom = htmlspecialchars($_POST['prenom']); // Sécurise le champ "prenom"
-
-        // Insertion des données dans la table Joueur
-        $stmt = $pdo->prepare("INSERT INTO Joueur (nom, prenom) VALUES (:nom, :prenom)");
-        $stmt->execute(["nom" => $nom, "prenom" => $prenom]); // Exécute la requête avec les données
-
-        // Génération d'un pseudo pour l'utilisateur
-        $pseudo = $nom; // Utilise le nom comme pseudo
-        echo '<input type = "hidden" value = "' . $pseudo . '">'; // Injecte le pseudo dans le DOM
-    }
-
-    // Vérification si des données sont passées en GET
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') { // Si la méthode est GET
-        if (isset($_GET['username2'], $_GET['difficulty'], $_GET['reactionTime'], $_GET['game_level'])) {
-            // Récupération des données passées en GET
-            $username = $_GET['username2'];
-            $difficulty = $_GET['difficulty'];
-            $reactionTime = $_GET['reactionTime'];
-            $gamelevel = $_GET['game_level'];
-
-            // Génération d'un ID unique pour la difficulté
-            $id_Diff = uniqid();
-
-            // Insertion dans la table Difficulté
-            $querySaveScore = "INSERT INTO Difficulté (id_Diff, niveau, temps_react, difficulte)
-                               VALUES (:id_Diff, :niveau, :temps_react, :difficulte)";
-            $saveScoreStmt = $pdo->prepare($querySaveScore);
-            $saveScoreStmt->execute([
-                'id_Diff' => $id_Diff, // ID unique pour la difficulté
-                'niveau' => $gamelevel, // Niveau du jeu
-                'temps_react' => $reactionTime, // Temps de réaction
-                'difficulte' => $difficulty // Niveau de difficulté
-            ]);
-
-            // Insertion dans la table Jouer
-            $queryInsertJouer = "INSERT INTO Jouer (id_Joueur, id_Diff)
-                                 VALUES (:id_Joueur, :id_Diff)";
-            $insertJouerStmt = $pdo->prepare($queryInsertJouer);
-            $insertJouerStmt->execute([
-                'id_Joueur' => $pdo->lastInsertId(), // Récupère l'ID du joueur inséré
-                'id_Diff' => $id_Diff // ID de la difficulté
-            ]);
-            header("Location: pagedebut.php"); // Redirige vers la même page
-        }
-    }
-} catch (PDOException $e) {
-    // Gestion des erreurs PDO
-    echo "Erreur : " . $e->getMessage(); // Affiche l'erreur
-    exit; // Arrête l'exécution du script
-}
-
-// Redirection vers la page de début
-
-
-?>
 </html>
