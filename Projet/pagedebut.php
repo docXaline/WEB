@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeux de Simon</title>
-    <link rel="stylesheet" href="pagedebut.css"> <!-- Lien vers le fichier CSS pour le style -->
+    <link rel="stylesheet" href="css/pagedebut.css"> <!-- Lien vers le fichier CSS pour le style -->
 </head>
 <body>
     <header>
@@ -55,6 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         Se déconnecter
     </button>
 </body>
-<script src="logout.js"></script> <!-- Inclusion du fichier JavaScript pour la déconnexion -->
-<script src="pagedebut.js"></script> <!-- Inclusion du fichier JavaScript -->
+<script src="js/logout.js"></script> <!-- Inclusion du fichier JavaScript pour la déconnexion -->
+<script src="js/pagedebut.js"></script> <!-- Inclusion du fichier JavaScript -->
 </html>

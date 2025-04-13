@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Simon basique</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -37,7 +37,7 @@
         </button>
     </div>
 </body>
-<script src="pagedebut.js"></script>
-<script src="script3.js"></script>
-<script src="logout.js"></script>
+<script src="js/pagedebut.js"></script>
+<script src="js/script3.js"></script>
+<script src="js/logout.js"></script>
 </html>

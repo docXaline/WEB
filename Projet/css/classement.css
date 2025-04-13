@@ -1,0 +1,81 @@
+body{
+    background-image: url("/WEB/Projet/images/background.png");
+    display: flex;
+    flex-direction: column; /* Aligne les éléments en colonne */
+    justify-content: center; /* Centre verticalement */
+    align-items: center; /* Centre horizontalement */
+    height: 100vh; /* Assure que le conteneur occupe toute la hauteur de la fenêtre */
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif; 
+    font-size: 3.0rem;
+    color: rebeccapurple; /* Couleur néon */
+    margin-top: 20px;
+    text-shadow: 2px 2px 4px #000; /* Effet de lumière */
+}
+
+/*Styling for the score table */
+table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-family: 'times new roman', Times, serif; 
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #1a1a1a; /* Fond sombre */
+    border: 2px solid rebeccapurple; /* Bordure néon */
+    box-shadow: 0 0 15px rebeccapurple; /* Effet néon */
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+table th, table td {
+    border: 1px solid #333;
+    padding: 15px;
+    text-align: center;
+}
+
+table th {
+    background-color: rebeccapurple; /* Couleur néon */
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+    background-color: #2a2a2a; /* Alternance de lignes */
+}
+
+table tr:hover {
+    background-color: rebeccapurple; /* Surlignage néon */
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add some spacing around the table */
+table {
+    margin-bottom: 40px;
+}
+
+button {
+    width: 200px;
+    background-color: black;
+    color: white;
+    border: 2px solid rebeccapurple; /* Bordure néon */
+    border-radius: 10px; /* Coins arrondis */
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rebeccapurple; /* Effet néon */
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px; /* Espacement au-dessus du bouton */
+}
+
+button:hover {
+    background-color: rebeccapurple; /* Couleur néon au survol */
+    color: black;
+    box-shadow: 0 0 20px rebeccapurple; /* Intensifie l'effet néon */
+}

@@ -1,0 +1,94 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/WEB/Projet/images/background.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* Hauteur minimale : 100% de la hauteur de la fenêtre */
+    width: 100%; /* Largeur : 100% de la fenêtre */
+    font-family: Arial, sans-serif;
+}
+
+h2{
+    color: white;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#piano-logo{
+    height: 20%;
+    width: 20%;
+}
+
+button {
+    width: 200px;
+    background-color: black;
+    color: white;
+    border: 2px solid rebeccapurple; /* Bordure néon */
+    border-radius: 10px; /* Coins arrondis */
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rebeccapurple; /* Effet néon */
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px; /* Espacement au-dessus du bouton */
+}
+
+button:hover {
+    background-color: rebeccapurple; /* Couleur néon au survol */
+    color: black;
+    box-shadow: 0 0 20px rebeccapurple; /* Intensifie l'effet néon */
+}
+
+.boutgros{
+    border: 2px solid rebeccapurple;
+}
+
+.boutgros img{
+    display: block;
+    width: 70%; /* Réduit la largeur des images */
+    height: auto; /* Maintient le ratio d'aspect */
+    margin: 10px auto; /* Centre les images et ajoute un espacement */
+}
+
+/* Conteneur pour aligner les boutons en colonne */
+.button-container {
+    display: flex;
+    flex-direction: column; /* Aligne les boutons verticalement */
+    align-items: center; /* Centre les boutons horizontalement */
+    gap: 15px; /* Espacement entre les boutons */
+}
+
+#logout-button {
+    margin-top: 20px; /* Ajoute un espacement supplémentaire pour le bouton de déconnexion */
+}
+
+#main-content {
+    width: 100%; /* S'assure que le contenu principal ne dépasse pas la largeur */
+    text-align: center;
+}
+
+/* Alignement des labels et des champs */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px; /* Espacement entre les éléments */
+}
+
+label {
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 300px; /* Largeur des champs */
+    padding: 10px; /* Espacement interne */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille du texte */
+}
