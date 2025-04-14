@@ -25,7 +25,7 @@ CREATE TABLE Difficulté(
 Attention a avoir toutes les extensions nécéssaire au html, css, JavaScript et php sur VSCode.
 
 Les instructions d'utilisation pour les joueurs:
-Pour bien démarrer le jeu il faut commencer par log.php, ensuite une fois le nom et prénom validé, vous serrez redirigé vers pagedebut.php (choix des jeux) et en cliquant sur les boutons vous serez redirigé vers les pages souhaitaient. Le classement affichera le classement voulu seulement si une personne a fini au moins un jeu.
+Pour bien démarrer le jeu il faut commencer par log.php, ensuite une fois le nom et prénom validés, vous serrez redirigé vers pagedebut.php (choix des jeux) et en cliquant sur les boutons vous serez redirigé vers les pages souhaitaient. Le classement affichera le classement voulu seulement si une personne a fini au moins un jeu.
 
 Des informations pour les développeurs souhaitant contribuer au projet:
 Nous aurions aimé faire trois classements différents selon la difficulté des jeux et possiblement rajouté d'autre variante du jeu de simon (les couleurs changent, la séquence est accélérée...)
